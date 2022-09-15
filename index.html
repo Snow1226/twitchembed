@@ -13,7 +13,7 @@
         import Enumerable from 'https://snow1226.github.io/twitchembed/linq.js'
         const urlSearchParams = new URLSearchParams(window.location.search);
         const channelId = urlSearchParams.get("channel") || "snow_rme";
-        const playerVolume =  urlSearchParams.get("volume") || 1;
+        const playerVolume =  urlSearchParams.get("volume") || "1";
         const outputDevice = urlSearchParams.get("device") || null;
         
         if(outputDevice){
