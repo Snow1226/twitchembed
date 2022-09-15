@@ -1,0 +1,28 @@
+<html>
+<body>
+
+    <select id="audioDevice"></select>
+    <script type="module">
+        !function () {
+            const audioDeviceSelect = $('#audioDevice');
+            navigator.mediaDevices.enumerateDevices()
+                .then(function (devices) { // success
+                    const values = selectors.map(select => select.val() || '');
+                    selectors.forEach(select => {
+                        const children = select.children(':first');
+                        while (children.length) {
+                            select.remove(children);
+                        }
+                    });
+                });
+            for (let i = 0; i !== devices.length; ++i) {
+                if (deviceInfo.kind === 'audiooutput') {
+                    option.text(deviceInfo.label ||
+                        'Output device ' + (audioDeviceSelect.children().length + 1));
+                    audioDeviceSelect.append(option);
+                }
+            }
+        }
+    </script>
+</body >
+</html >
