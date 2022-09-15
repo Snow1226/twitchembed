@@ -13,6 +13,14 @@
         import Enumerable from 'https://snow1226.github.io/twitchembed/linq.js'
         const urlSearchParams = new URLSearchParams(window.location.search);
         const channelId = urlSearchParams.get("channel") || "snow_rme";
+        const outputDevice = urlSearchParams.get("device") || null;
+        
+        if(outputDevice){
+            navigator.mediaDevices.enumerateDevices().then(devices=>{
+				devices.filter(device => device.kind === 'audiooutput').forEach(device=>{
+					console.log(device.deviceId);
+				})
+        }
 
         const options = {
             width: "100%",
