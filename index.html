@@ -16,10 +16,11 @@
         const outputDevice = urlSearchParams.get("device") || null;
         
         if(outputDevice){
-            navigator.mediaDevices.enumerateDevices().then(devices=>{
-				devices.filter(device => device.kind === 'audiooutput').forEach(device=>{
-					console.log(device.deviceId);
-				})
+            navigator.mediaDevices.enumerateDevices().then(devices => {
+                devices.filter(device => device.kind === 'audiooutput').forEach(device => {
+                    console.log(device.deviceId);
+                })
+            });
         }
 
         const options = {
