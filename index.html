@@ -4,6 +4,7 @@
 <head>
     <title>Twitch Embedded Palyer</title>
     <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+    <script src="https://snow1226.github.io/twitchembed/linq.js" integrity="sha512-1xYFoIewi5LmSRllBARwDD0mBTQscchcMXKILLYTA/fFFO1z8tD/jtSt1lzzyle6Kxeu6MQ/GlkxFzWwAwuUzQ==" crossorigin="anonymous"></script>
 </head>
 
 <body style="border: 0; margin: 0; padding: 0; height:100%; width: 100%;">
@@ -14,14 +15,6 @@
         const urlSearchParams = new URLSearchParams(window.location.search);
         const channelId = urlSearchParams.get("channel") || "snow_rme";
         const outputDevice = urlSearchParams.get("device") || null;
-        
-        if(outputDevice){
-            navigator.mediaDevices.enumerateDevices().then(devices => {
-                devices.filter(device => device.kind === 'audiooutput').forEach(device => {
-                    console.log(device.deviceId);
-                })
-            });
-        }
 
         const options = {
             width: "100%",
@@ -57,7 +50,7 @@
 
                 window.player = player;
 
-                player.setVolume(1);
+                player.setVolume(1.0);
                 player.play();
             }
         );
