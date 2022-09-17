@@ -79,7 +79,8 @@
                     if(device.kind =='audiooutput'){
                         console.log(device.label);
                         if(outputDeviceId == device.label){
-                            const audio = document.creatElement('audio');
+                            console.log('set output device :' + device.label);
+                            const audio = document.createElement('audio');
                             audio.setSinkId(device.deviceId);
                         }
                     }
