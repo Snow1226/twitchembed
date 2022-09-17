@@ -59,6 +59,7 @@
         player.setVolume(1.0);
         player.play();
         
+        /*
         var constraints = { audio: true, video: true };
         
         navigator.mediaDevices.getUserMedia(constraints)
@@ -68,16 +69,17 @@
             video.onloadedmetadata = function(e) {
             video.play();
             };
-            navigator.mediaDevices.enumerateDevices().then(function(deviceInfos){
-                deviceInfos.forEach(function(deviceIndfo){
-                    console.log(deviceInfo.label);
-                });
-            });
+
         })
         .catch(function(err) {
           console.log(err.name + ": " + err.message);
         });
-        
+        */
+        navigator.mediaDevices.enumerateDevices().then(function(deviceInfos){
+            deviceInfos.forEach(function(deviceIndfo){
+                console.log(deviceInfo.label);
+            });
+        });
     </script>
 </body>
 
