@@ -63,16 +63,21 @@
         
         navigator.mediaDevices.getUserMedia(constraints)
         .then(function(stream) {
-          var video = document.querySelector('video');
-          video.srcObject = stream
-          video.onloadedmetadata = function(e) {
+            var video = document.querySelector('video');
+            video.srcObject = stream
+            video.onloadedmetadata = function(e) {
             video.play();
-          };
+            };
+            navigator.mediaDevices.enumerateDevices().then(deviceInfos =>{
+                deviceInfos.forEach(deviceInfo=>{
+                    console.log(deviceInfo.label);
+                });
+            });
         })
         .catch(function(err) {
           console.log(err.name + ": " + err.message);
         });
-        navigator.mediaDevices.enumerateDevices();
+        
     </script>
 </body>
 
