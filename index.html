@@ -75,11 +75,15 @@
           console.log(err.name + ": " + err.message);
         });
         */
-        navigator.mediaDevices.enumerateDevices().then(function(deviceInfos){
-            deviceInfos.forEach(function(deviceIndfo){
-                console.log(deviceInfo.label);
+        navigator.mediaDevices.enumerateDevices()
+            .then(function(devices) { // 成功時
+                devices.forEach(function(device) {
+                    console.log(device.label);
+                });
+            })
+            .catch(function(err) { // エラー発生時
+                console.error('enumerateDevide ERROR:', err);
             });
-        });
     </script>
 </body>
 
