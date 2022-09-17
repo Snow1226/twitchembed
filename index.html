@@ -14,7 +14,9 @@
         import Enumerable from 'https://snow1226.github.io/twitchembed/linq.js'
         const params = new URLSearchParams(window.location.search);
         const channelId = params.get("channel") || "snow_rme";
-        const outputDeviceId = params.get("device") || "default";
+        const outputDevice = params.get("device") || "default";
+        const outputDeviceId = params.get("deviceId") || "default";
+        const audio = document.createElement('audio');
 
         const options = {
             width: "100%",
@@ -73,22 +75,26 @@
             console.log(err.name + ": " + err.message);
         });
         
-        navigator.mediaDevices.enumerateDevices()
-            .then(function(devices) {
-                devices.forEach(function(device) {
-                    if(device.kind =='audiooutput'){
-                        console.log(device.label);
-                        if(outputDeviceId == device.label){
-                            console.log('set output device :' + device.label);
-                            const audio = document.createElement('audio');
-                            audio.setSinkId(device.deviceId);
+        if(outputDevice!="default"){
+            navigator.mediaDevices.enumerateDevices()
+                .then(function(devices) {
+                    devices.forEach(function(device) {
+                        if(device.kind =='audiooutput'){
+                            console.log(device.label + "[" + device.deviceId + "]");
+                            if(outputDevice == device.label){
+                                console.log('set output device :' + device.label);
+                                await audio.setSinkId(device.deviceId);
+                            }
                         }
-                    }
+                });
+            })
+            .catch(function(err) {
+                console.error('enumerateDevide ERROR:', err);
             });
-        })
-        .catch(function(err) {
-            console.error('enumerateDevide ERROR:', err);
-        });
+        }
+        if(outputDeviceId!="default"){
+            await audio.setSinkId(outputDeviceId);
+        }
     </script>
 </body>
 
