@@ -14,6 +14,7 @@
         import Enumerable from 'https://snow1226.github.io/twitchembed/linq.js'
         const params = new URLSearchParams(window.location.search);
         const channelId = params.get("channel") || "snow_rme";
+        const deviceId = params.get("device") || "default";
         
         const options = {
             width: "100%",
