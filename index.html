@@ -13,15 +13,14 @@
     <script type="module">
         import Enumerable from 'https://snow1226.github.io/twitchembed/linq.js'
         const urlSearchParams = new URLSearchParams(window.location.search);
-        const channelId = urlSearchParams.get("channel") || "snow_rme";
-        const outputDevice = urlSearchParams.get("device") || null;
+        const channelId = urlSearchParams.get("channel") || "maguro_bs";
 
         const options = {
             width: "100%",
             height: "100%",
             channel: channelId,
             parent: [window.location.hostname || "localhost"],
-            muted: false,
+
             autoplay: true
         };
 
@@ -50,7 +49,7 @@
 
                 window.player = player;
 
-                player.setVolume(1.0);
+                player.setVolume(1);
                 player.play();
             }
         );
