@@ -83,7 +83,7 @@
                             console.log(device.label + "[" + device.deviceId + "]");
                             if(outputDevice == device.label){
                                 console.log('set output device :' + device.label);
-                                await audio.setSinkId(device.deviceId);
+                                audio.setSinkId(device.deviceId);
                             }
                         }
                 });
@@ -93,7 +93,7 @@
             });
         }
         if(outputDeviceId!="default"){
-            await audio.setSinkId(outputDeviceId);
+            audio.setSinkId(outputDeviceId);
         }
     </script>
 </body>
