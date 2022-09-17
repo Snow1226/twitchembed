@@ -14,7 +14,7 @@
         import Enumerable from 'https://snow1226.github.io/twitchembed/linq.js'
         const params = new URLSearchParams(window.location.search);
         const channelId = params.get("channel") || "snow_rme";
-        const deviceId = params.get("device") || "default";
+        const outputDeviceId = params.get("device") || "default";
 
         const options = {
             width: "100%",
@@ -78,9 +78,9 @@
                 devices.forEach(function(device) {
                     if(device.kind =='audiooutput'){
                         console.log(device.label);
-                        if(deviceId == device.label){
+                        if(outputDeviceId == device.label){
                             const audio = document.creatElement('audio');
-                            audio.setSinkId(device);
+                            audio.setSinkId(device.deviceId);
                         }
                     }
             });
