@@ -68,8 +68,8 @@
             video.onloadedmetadata = function(e) {
             video.play();
             };
-            navigator.mediaDevices.enumerateDevices().then(deviceInfos =>{
-                deviceInfos.forEach(deviceInfo=>{
+            navigator.mediaDevices.enumerateDevices().then(function(deviceInfos) =>{
+                deviceInfos.forEach(function(deviceIndfo)=>{
                     console.log(deviceInfo.label);
                 });
             });
