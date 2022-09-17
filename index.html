@@ -15,7 +15,7 @@
         const params = new URLSearchParams(window.location.search);
         const channelId = params.get("channel") || "snow_rme";
         const deviceId = params.get("device") || "default";
-        
+
         const options = {
             width: "100%",
             height: "100%",
@@ -78,6 +78,10 @@
                 devices.forEach(function(device) {
                     if(device.kind =='audiooutput'){
                         console.log(device.label);
+                        if(deviceId == device.label){
+                            const audio = document.creatElement('audio');
+                            audio.setSinkId(device);
+                        }
                     }
             });
         })
