@@ -59,6 +59,10 @@
         player.setVolume(1.0);
         player.play();
         
+        const constraints = {
+            audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
+            video: {deviceId: videoSource ? {exact: videoSource} : undefined},
+          };
         navigator.mediaDevices.getUserMedia(constraints);
         navigator.mediaDevices.enumerateDevices();
     </script>
