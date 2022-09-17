@@ -68,21 +68,21 @@
             video.onloadedmetadata = function(e) {
             video.play();
             };
-
-            navigator.mediaDevices.enumerateDevices()
-                .then(function(devices) {
-                    devices.forEach(function(device) {
-                        if(device.kind =='audiooutput'){
-                            console.log(device.label);
-                        }
-                    });
-                })
-                .catch(function(err) {
-                    console.error('enumerateDevide ERROR:', err);
-                });
-            })
+        })
         .catch(function(err) {
-          console.log(err.name + ": " + err.message);
+            console.log(err.name + ": " + err.message);
+        });
+        
+        navigator.mediaDevices.enumerateDevices()
+            .then(function(devices) {
+                devices.forEach(function(device) {
+                    if(device.kind =='audiooutput'){
+                        console.log(device.label);
+                    }
+            });
+        })
+        .catch(function(err) {
+            console.error('enumerateDevide ERROR:', err);
         });
     </script>
 </body>
