@@ -59,7 +59,6 @@
         player.setVolume(1.0);
         player.play();
         
-        /*
         var constraints = { audio: true, video: true };
         
         navigator.mediaDevices.getUserMedia(constraints)
@@ -70,20 +69,21 @@
             video.play();
             };
 
-        })
+            navigator.mediaDevices.enumerateDevices()
+                .then(function(devices) {
+                    devices.forEach(function(device) {
+                        if(device.kind =='audiooutput'){
+                            console.log(device.label);
+                        }
+                    });
+                })
+                .catch(function(err) {
+                    console.error('enumerateDevide ERROR:', err);
+                });
+            })
         .catch(function(err) {
           console.log(err.name + ": " + err.message);
         });
-        */
-        navigator.mediaDevices.enumerateDevices()
-            .then(function(devices) { // 成功時
-                devices.forEach(function(device) {
-                    console.log(device.label);
-                });
-            })
-            .catch(function(err) { // エラー発生時
-                console.error('enumerateDevide ERROR:', err);
-            });
     </script>
 </body>
 
