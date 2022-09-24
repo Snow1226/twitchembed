@@ -13,11 +13,14 @@
     <script type="module">
         import Enumerable from 'https://snow1226.github.io/twitchembed/linq.js'
 
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const wsport = urlSearchParams.get("port") || "3338";
+
         var isPlayed = false;
         var player;
         var Player_iFrame = {
             Listen: function () {
-                this.socket = new WebSocket('ws://127.0.0.1:3338');
+                this.socket = new WebSocket('ws://127.0.0.1:' + wsport);
                 this.connected = false;
 
                 this.socket.onopen = function () {
