@@ -12,52 +12,96 @@
 
     <script type="module">
         import Enumerable from 'https://snow1226.github.io/twitchembed/linq.js'
-        const params = new URLSearchParams(window.location.search);
-        const channelId = params.get("channel") || "snow_rme";
 
-        const options = {
-            width: "100%",
-            height: "100%",
-            channel: channelId,
-            parent: [window.location.hostname || "localhost"],
-            muted: false,
-            autoplay: true
-        };
+        var isPlayed = false;
+        var player;
+        var Player_iFrame = {
+            Listen: function () {
+                this.socket = new WebSocket('ws://127.0.0.1:3338');
+                this.connected = false;
 
-        let player = new Twitch.Player("player_container", options);
-        player.setMuted(false);
-        player.setVolume(1.0);
+                this.socket.onopen = function () {
+                    this.connected = true;
+                    console.log('WebSocket OnOpen');
+                }
 
-        player.addEventListener(
-            Twitch.Player.ONLINE,
-            () => {
-                setInterval(() => {
-                    var currentQuality = player.getQuality();
-                    console.info("current quality:", currentQuality);
+                this.socket.onerror = function (error) {
+                    console.log('Error: ' + error);
+                }
 
-                    if (currentQuality == "auto") {
-                        var qualities = player.getQualities();
-                        var newQuality = Enumerable.from(qualities)
-                            .firstOrDefault(x => x.name.toLowerCase().includes("source"));
+                this.socket.onmessage = function (message) {
+                    console.log(message);
+                    var json = JSON.parse(message.data);
+                    console.log("json", json);
 
-                        if (newQuality) {
-                            player.setQuality(newQuality.group);
-                            console.info("quality set:", newQuality);
+                    if (json.event == 'EVENT_PLAYER') {
+                        var data = json.data;
+
+                        if (data.streamer) {
+                            if (data.streamer === undefined) data.streamer = "snow_rme";
+                            const channelId = data.streamer;
+
+                            if (isPlayed == true) {
+                                var iframeElement = document.querySelector('#player_container').firstChild.remove();
+                            }
+
+                            const options = {
+                                width: "100%",
+                                height: "100%",
+                                channel: channelId,
+                                parent: [window.location.hostname || "localhost"],
+                                muted: false,
+                                autoplay: true
+                            };
+
+                            player = new Twitch.Player("player_container", options);
+                            player.setMuted(false);
+                            player.setVolume(1.0);
+                            isPlayed = true;
+
+                            player.addEventListener(
+                                Twitch.Player.ONLINE,
+                                () => {
+                                    setInterval(() => {
+                                        var currentQuality = player.getQuality();
+                                        console.info("current quality:", currentQuality);
+
+                                        if (currentQuality == "auto") {
+                                            var qualities = player.getQualities();
+                                            var newQuality = Enumerable.from(qualities)
+                                                .firstOrDefault(x => x.name.toLowerCase().includes("source"));
+
+                                            if (newQuality) {
+                                                player.setQuality(newQuality.group);
+                                                console.info("quality set:", newQuality);
+                                            }
+                                        }
+                                    }, 3000);
+
+                                    window.player = player;
+
+                                    player.setVolume(1);
+                                    player.play();
+                                }
+                            );
+
+                            player.setMuted(false);
+                            player.setVolume(1.0);
+                            player.play();
+
                         }
                     }
-                }, 3000);
+                }
 
-                window.player = player;
-
-                player.setVolume(1);
-                player.play();
+                this.socket.onclose = function () {
+                    console.log('Connection Closed!');
+                    this.connected = false;
+                    setTimeout(Player_iFrame.Listen, 3000)
+                }
             }
-        );
+        }
+        Player_iFrame.Listen();
 
-        player.setMuted(false);
-        player.setVolume(1.0);
-        player.play();
-    }
     </script>
 </body>
 
