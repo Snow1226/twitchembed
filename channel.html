@@ -61,6 +61,7 @@
                 window.player = player;
                 player.setVolume(1);
                 player.play();
+                document.dispatchEvent(new KeyboardEvent('keydown', { key: 'm' }));
             }
         );
     </script>
